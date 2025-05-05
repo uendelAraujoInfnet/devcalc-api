@@ -5,10 +5,11 @@ on:
     branches:
       - main
     paths:
-      - '../../devcalc-api/src'
+      - 'src/**'
   pull_request:
     paths:
-      - '../../devcalc-api/src'
+      - 'src/**'
+  workflow_dispatch:
 
 jobs:
   build:
