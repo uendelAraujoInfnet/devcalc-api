@@ -45,7 +45,7 @@ jobs:
       - name: Compute version
         id: set-version
         run: |
-          VERSION-"1.2.3"
+          VERSION="1.2.3"
           echo "A versão do sistema é $VERSION"
           echo "::set-output name=version::$VERSION"
 
@@ -61,7 +61,7 @@ jobs:
     steps:
       - name: Deploy simulation
         run: |
-          echo "Implantando a versão ${VERSION} no ambiente de ${APP_ENV}
+          echo "Implantando a versão ${VERSION} no ambiente de ${APP_ENV}"
           
 
 
