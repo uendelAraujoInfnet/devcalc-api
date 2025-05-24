@@ -27,4 +27,36 @@
     </dependency>
 
   </dependencies>
+  
+  <build>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-checkstyle-plugin</artifactId>
+          <version>3.3.0</version>
+          <executions>
+            <execution>
+              <phase>verify</phase>
+              <goals>
+                <goal>checkstyle</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <outputFileFormat>html</outputFileFormat>
+            <outputDirectory>${project.build.directory}/checkstyle-reports</outputDirectory>
+          </configuration>
+        </plugin>
+      </plugins>
+  </build>
+
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+        <version>3.3.0</version>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>
