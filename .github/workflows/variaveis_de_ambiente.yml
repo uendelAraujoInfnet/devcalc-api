@@ -53,6 +53,7 @@ jobs:
         run: |
           echo "APP_ENV=production" >> "$GITHUB_ENV"
           echo "${APP_ENV}"
+          echo "${GITHUB_ENV}"
   deploy:
     needs: generate
     runs-on: ubuntu-latest
