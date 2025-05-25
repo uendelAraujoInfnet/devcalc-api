@@ -42,6 +42,7 @@ O workflow principal `ci.yml` foi ajustado para chamar este workflow reutilizáv
 
 ```yaml
 uses: ./.github/workflows/lint-and-test.yml
+```
 
 
 ### ✅Atividade 4 — Execução Manual com Parâmetros Booleanos
