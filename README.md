@@ -71,3 +71,12 @@ Nesta etapa, foram provocadas falhas intencionais no pipeline da aplicação **D
 
 Após a execução do pipeline com falha, a análise foi realizada por meio da aba **Actions** do GitHub, utilizando os logs detalhados de cada job para localizar a origem dos erros. As correções foram aplicadas com base nas mensagens de erro, ajustando as versões e parâmetros esperados pelas actions. Em seguida, foi feito um novo push e a execução do pipeline foi validada com sucesso. Essa atividade contribuiu para o desenvolvimento de habilidades de depuração, leitura de logs e correção de problemas reais em pipelines de integração contínua.
 Execução via push
+
+### ✅ Observações sobre os Gatilhos de Execução
+
+Durante a execução da atividade, foram testados dois tipos de gatilhos do GitHub Actions:
+
+- **Execução automática via push:** o workflow foi disparado imediatamente após uma alteração no código-fonte da aplicação. Essa abordagem é ideal para garantir validações contínuas ao longo do desenvolvimento.
+- **Execução manual via botão (workflow_dispatch):** permitiu controlar manualmente quais partes do pipeline deveriam ser executadas por meio de parâmetros booleanos (`run_tests` e `run_lint`). Essa opção é útil em situações específicas, como execuções parciais ou verificações de código isoladas.
+
+Ambos os gatilhos funcionaram conforme esperado, permitindo flexibilidade e automação no processo de integração contínua.
