@@ -57,3 +57,13 @@ Foram adicionados dois parâmetros na instrução `workflow_dispatch`:
 Esses parâmetros são utilizados dentro do workflow reutilizável `lint-and-test.yml` por meio de expressões condicionais `if: ${{ inputs.run_tests }}` e `if: ${{ inputs.run_lint }}`. Isso permite controlar dinamicamente quais *jobs* devem ser executados, tornando o pipeline mais flexível e inteligente.
 
 A funcionalidade foi validada com sucesso ao executar o workflow manualmente, escolhendo diferentes combinações de valores para os parâmetros. A execução refletiu corretamente as escolhas feitas, demonstrando a adaptabilidade do pipeline.
+
+### ✅ Atividade 5 — Provocando e Corrigindo um Erro no Pipeline
+
+Nesta etapa, foram provocadas falhas intencionais no pipeline da aplicação **DevCalc** com o objetivo de exercitar a depuração e correção de workflows no GitHub Actions. Os erros incluíram:
+
+- Referência incorreta à versão de uma action (`github/codeql-action@v4`, inexistente até o momento).
+- Omissão obrigatória do parâmetro `distribution` na action `setup-java`.
+- Um erro proposital no job `build` com o comando `exit 1`.
+
+Após a execução do pipeline com falha, a análise foi realizada por meio da aba **Actions** do GitHub, utilizando os logs detalhados de cada job para localizar a origem dos erros. As correções foram aplicadas com base nas mensagens de erro, ajustando as versões e parâmetros esperados pelas actions. Em seguida, foi feito um novo push e a execução do pipeline foi validada com sucesso. Essa atividade contribuiu para o desenvolvimento de habilidades de depuração, leitura de logs e correção de problemas reais em pipelines de integração contínua.
