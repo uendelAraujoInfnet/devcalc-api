@@ -89,7 +89,8 @@ jobs:
     needs: package
     steps:
       - name: Mensagem de simulação de deploy
-        run: echo "✅ Deploy realizado com sucesso"
+        run: comando_inexistente
 
       - name: Mensagem de simulação de deploy
-        run: comando_inexistente
+        run: echo "✅ Deploy realizado com sucesso"
+
