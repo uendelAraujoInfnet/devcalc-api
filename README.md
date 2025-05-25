@@ -42,3 +42,17 @@ O workflow principal `ci.yml` foi ajustado para chamar este workflow reutilizáv
 
 ```yaml
 uses: ./.github/workflows/lint-and-test.yml
+
+
+### ✅Atividade 4 — Execução Manual com Parâmetros Booleanos
+
+Nesta etapa, o workflow principal da aplicação **DevCalc** foi aprimorado para permitir a **execução manual** diretamente pela interface do GitHub Actions, com suporte a **parâmetros booleanos configuráveis**.
+
+Foram adicionados dois parâmetros na instrução `workflow_dispatch`:
+
+- `run_tests`: define se os testes automatizados devem ser executados.
+- `run_lint`: define se o linting com Checkstyle deve ser executado.
+
+Esses parâmetros são utilizados dentro do workflow reutilizável `lint-and-test.yml` por meio de expressões condicionais `if: ${{ inputs.run_tests }}` e `if: ${{ inputs.run_lint }}`. Isso permite controlar dinamicamente quais *jobs* devem ser executados, tornando o pipeline mais flexível e inteligente.
+
+A funcionalidade foi validada com sucesso ao executar o workflow manualmente, escolhendo diferentes combinações de valores para os parâmetros. A execução refletiu corretamente as escolhas feitas, demonstrando a adaptabilidade do pipeline.
