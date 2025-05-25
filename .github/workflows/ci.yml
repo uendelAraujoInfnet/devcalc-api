@@ -81,8 +81,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Gerar artefato .jar
-        run: mvn package
+      - name: forçando erro
+        run: exit 1
     
   deploy:
     runs-on: ubuntu-latest
