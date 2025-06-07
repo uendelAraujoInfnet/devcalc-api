@@ -23,7 +23,7 @@ jobs:
           echo "7zip instalado com sucesso."
 
       - name: Verificar se o 7z foi instalado
-        shell: pwsh
+        shell: powershell
         run: |
           if (Get-Command "7z" -ErrorAction SilentlyContinue) {
             Write-Output "7z encontrado!"
