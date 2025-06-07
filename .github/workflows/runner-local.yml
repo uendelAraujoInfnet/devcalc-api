@@ -12,7 +12,7 @@ jobs:
       - name: Exibir SO e Java
         run: |
           echo "Sistema Operacional:"
-          uname -a
+          systeminfo | findstr /B /C:"OS"
           echo "Versão do Java:"
           java -version
 
