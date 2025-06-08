@@ -1,0 +1,37 @@
+name: TP3 - Uso do GITHUB_TOKEN
+
+on: 
+  workflow_dispatch:
+
+permissions:
+  issues: write # necessário para criar issues
+
+jobs:
+  criar-issue-condicional: 
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Verificar se PROD_TOKEN está definido
+        id: verificar
+        run: |
+          if [ -z "${{ secrets.PROD_TOKEN }}"]; then
+            echo "ausente=true" >> $GITHUB_OUTPUT
+          else
+            echo "ausente=false" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Instalar GitHub CLI
+        if: steps.verificar.outputs.ausente == 'true'
+        run: |
+          sudo apt update
+          sudo apt install -y gh
+
+      - name: Criar issue automaticamente
+        if: steps.verificar.outputs.ausente == 'true'
+        env: 
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+          --title "🚨 PROD_TOKEN ausente no repositório" \
+          --body "Foi detectada a ausência do secret PROD_TOKEN. Verifique a configuração nas variáveis do repositório." \
+          --label "ci"
