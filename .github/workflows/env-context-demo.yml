@@ -1,0 +1,36 @@
+name: Demonstração de Contextos e Variáveis
+
+on: 
+  workflow_dispatch:
+
+env: # Variável no nível do WORKFLOW
+  STAGE: workflow
+
+jobs:
+  contextos-e-variaveis:
+    runs-on: ubuntu-latest
+    env: # Variável no nível do JOB
+      STAGE: job
+
+    steps:
+      - name: Exibindo variáveis no nível do STEP
+        env:
+          STAGE: step
+        run: |
+          echo "=== Etapa 1: Nível do STEP ==="
+          echo "STAGE = $STAGE"
+          echo "Usuário: ${{ github.actor }}"
+          echo "Sistema Operacional: ${{ runner.os }}"
+
+      - name: Exibindo variável no nível JOB
+        run: |
+          echo "=== Etapa 2: Nível do JOB ==="
+          echo "STAGE = $STAGE"
+
+      - name: Exibindo variável no nível do WORKFLOW ( Sem SOBRESCRITA )
+        shell: bash
+        env: 
+          STAGE: ${{ env.STAGE }}
+        run: |
+          echo "=== Etapa 3: Nível do WORKFLOW ==="
+          echo "SATEG = $STAGE"
