@@ -20,4 +20,11 @@ public class CalculatorService {
         if(b == 0 ) throw new DivisionByZeroException("O divisor não pode ser zero");
         return a / b;
     }
+
+    public double sqrt(double x){
+        if(x < 0){
+            throw new IllegalArgumentException("Número negativo não possui raiz quadadra real.");
+        }
+        return Math.sqrt(x);
+    }
 }

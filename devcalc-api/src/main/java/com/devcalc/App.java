@@ -37,5 +37,11 @@ public class App
             double b = Double.parseDouble(ctx.queryParam("b"));
             ctx.result(String.valueOf(service.divide(a, b)));
         });
+
+        // Método para chamar o endpoint da Raiz Quadrada de um número
+        app.get("/sqrt", ctx -> {
+            double x = Double.parseDouble(ctx.queryParam("x"));
+            ctx.result(String.valueOf(service.sqrt(x)));
+        });
     }
 }

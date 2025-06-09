@@ -31,4 +31,19 @@ public class CalculatorServiceTest {
         assertEquals(2, service.divide(10, 5));
         assertEquals(4.5, service.divide(18, 4));
     }
+
+    @Test
+    void testSqrtComValorPositivo(){
+        CalculatorService service = new CalculatorService();
+        double resultado = service.sqrt(16);
+        assertEquals(4.0, resultado, 0.0001);
+    }
+
+    @Test
+    void testSqrtComValorNegativo(){
+        CalculatorService service = new CalculatorService();
+        assertThrows(IllegalArgumentException.class, () -> {
+            service.sqrt(-9);
+        });
+    }
 }
