@@ -42,7 +42,6 @@ jobs:
     uses: ./.github/workflows/lint-and-test.yml
     with:
       java-version: '17'
-      distribution: 'temurin'
       run_tests: ${{ inputs.run_tests }}
       run_lint: ${{ inputs.run_lint }}
 
