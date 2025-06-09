@@ -80,3 +80,151 @@ Durante a execução da atividade, foram testados dois tipos de gatilhos do GitH
 - **Execução manual via botão (workflow_dispatch):** permitiu controlar manualmente quais partes do pipeline deveriam ser executadas por meio de parâmetros booleanos (`run_tests` e `run_lint`). Essa opção é útil em situações específicas, como execuções parciais ou verificações de código isoladas.
 
 Ambos os gatilhos funcionaram conforme esperado, permitindo flexibilidade e automação no processo de integração contínua.
+
+
+## 🚀 Teste de Performance 3 (TP3) - DevCalc
+
+Este terceiro Teste de Performance aprofunda o controle e a segurança do pipeline DevCalc, consolidando conhecimentos em GitHub Actions com foco em runners auto-hospedados, gestão segura de variáveis, escopos de ambiente, permissões e ambientes separados de deploy.
+
+---
+
+### ✅ Etapa 1 - Configuração de Runner Auto-Hospedado
+
+Um runner auto-hospedado foi configurado com sucesso em uma máquina local. Foi criado o workflow `runner-local.yml`, que executa:
+
+```yaml
+runs-on: self-hosted
+steps:
+  - name: Exibir SO e Java
+    run: |
+      echo "OS: $Env:OS"
+      java -version
+
+  - name: Instalar 7-Zip (via choco)
+    run: choco install 7zip -y
+
+  - name: Verificar instalação do 7-Zip
+    shell: powershell
+    run: |
+      if (Get-Command "7z" -ErrorAction SilentlyContinue) {
+        Write-Output "7z encontrado!"
+      } else {
+        Write-Output "7z não encontrado."
+      }
+```
+
+---
+
+### ✅ Etapa 2 - Uso de Variáveis e Secrets no Workflow
+
+Foram criadas variáveis e secrets no repositório:
+- `APP_MODE = production`
+- `SUPPORT_EMAIL = suporte@devcalc.com`
+- `PROD_TOKEN = abc123xyz`
+
+Workflow `variaveis-e-secrets.yml` utilizou:
+
+```yaml
+${{ vars.APP_MODE }}
+${{ vars.SUPPORT_EMAIL }}
+${{ secrets.PROD_TOKEN }}
+```
+
+---
+
+### ✅ Etapa 3 - Contextos e Escopos de Variáveis de Ambiente
+
+O workflow `env-context-demo.yml` demonstrou o uso de escopos:
+- `env:` em nível de **workflow**, **job** e **step**
+- Impressão de:
+  - `github.actor`
+  - `runner.os`
+  - `STAGE`
+
+> 🧠 Resultado: escopos sobrepostos corretamente (`step > job > workflow`)
+
+---
+
+### ✅ Etapa 4 - Permissões e Uso do GITHUB_TOKEN
+
+Workflow `criar-issue-condicional.yml`:
+- Define `permissions: issues: write`
+- Usa o `GITHUB_TOKEN` para abrir uma issue se `PROD_TOKEN` estiver ausente.
+
+> 🛡️ Simulação de alerta automatizado em pipelines
+
+---
+
+### ✅ Etapa 5 - Deploy com Ambientes Dev e Prod
+
+Ambientes criados:
+- **dev**: deploy automático
+- **prod**: deploy com aprovação manual
+
+Configuração do workflow `deploy-ambientes.yml`:
+
+```yaml
+jobs:
+  deploy-dev:
+    if: github.ref == 'refs/heads/dev'
+    environment: dev
+
+  deploy-prod:
+    if: github.ref == 'refs/heads/main'
+    environment: prod
+```
+
+---
+
+### ✅ Etapa 6 - Implementação do endpoint `/sqrt`
+
+Implementado novo endpoint na API: `GET /sqrt?x=16`
+
+**CalculatorService.java**:
+```java
+public double sqrt(double x) {
+  if (x < 0) throw new IllegalArgumentException("Negativo");
+  return Math.sqrt(x);
+}
+```
+
+**CalculatorController.java**:
+```java
+get("/sqrt", ctx -> {
+  double x = Double.parseDouble(ctx.queryParam("x"));
+  ctx.result(String.valueOf(calculatorService.sqrt(x)));
+});
+```
+
+**Testes:**
+```java
+@Test
+void testSqrtComValorPositivo() {
+  assertEquals(4.0, service.sqrt(16), 0.0001);
+}
+
+@Test
+void testSqrtComValorNegativo() {
+  assertThrows(IllegalArgumentException.class, () -> service.sqrt(-9));
+}
+```
+
+> ✅ Testes passaram no CI  
+
+---
+
+### 📂 Evidências
+
+Todos os prints, logs e execuções estão salvos em:
+
+```
+/evidencias/TP3/
+```
+
+---
+
+### 📌 Status Final
+
+✅ TP3 concluído com sucesso, pipeline profissional, seguro e com documentação completa.
+
+---
