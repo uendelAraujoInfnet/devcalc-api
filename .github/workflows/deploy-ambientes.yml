@@ -1,0 +1,28 @@
+name: TP3 - Deploy por Ambiente
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+
+jobs:
+  deploy-dev:
+    name: Deploy ambiente dev
+    if: github.ref == 'refs/heads/dev'
+    runs-on: ubuntu-latest
+    environment:
+      name: dev
+    steps:
+      - name: Simulando deploy dev
+        run: echo " Deploy para ambiente DEV concluido "
+
+  deploy-prod:
+    name: Deploy ambiente prod
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    steps:
+      - name: Simulando deploy prod
+        run: echo " Deploy para ambiente PROD concluido com aprovação."
