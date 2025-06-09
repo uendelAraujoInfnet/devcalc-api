@@ -19,6 +19,7 @@ jobs:
           else
             echo "ausente=false" >> $GITHUB_OUTPUT
           fi
+        shell: bash
 
       - name: Instalar GitHub CLI
         if: steps.verificar.outputs.ausente == 'true'
