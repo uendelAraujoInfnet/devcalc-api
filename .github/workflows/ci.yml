@@ -37,6 +37,7 @@ jobs:
 
       - name: Build do projeto
         run: mvn clean install
+        working-directory: devcalc-api
 
   lint-and-test:
     uses: ./.github/workflows/lint-and-test.yml
@@ -64,6 +65,7 @@ jobs:
 
       - name: Compilar o projeto
         run: mvn clean compile
+        working-directory: devcalc-api
 
       - name: Executar análise com CodeQL
         uses: github/codeql-action/analyze@v3
@@ -83,6 +85,7 @@ jobs:
 
       - name: Gerar artefato .jar
         run: mvn package
+        working-directory: devcalc-api
     
   deploy:
     runs-on: ubuntu-latest
