@@ -7,6 +7,10 @@ on:
         required: false
         type: string
         default: '17'
+      distribution:
+        required: false
+        type: string
+        default: 'temurin'
       run_tests:
         required: false
         type: boolean
@@ -28,6 +32,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.java-version }}
+          distribution: ${{ inputs.distribution }}
+
 
       - name: Executar testes
         run: mvn test
@@ -44,6 +50,8 @@ jobs:
         uses: actions/setup-java@v4
         with:
           java-version: ${{ inputs.java-version }}
+          distribution: ${{ inputs.distribution }}
+
 
       - name: Executar Checkstyle
         run: mvn site
